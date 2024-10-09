@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,11 +12,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Notifications
@@ -62,11 +60,10 @@ fun HomeScreen(navController: NavHostController) {
         topBar = { MainTopBar() },
         bottomBar = { BottomNavigation(navController) }
     ) { innerPadding ->
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-
         ) {
             MainList(
                 uiState = uiState,
@@ -105,7 +102,7 @@ fun MainTopBar() {
             IconButton(onClick = {}) {
                 Icon(
                     Icons.Default.Notifications,
-                    tint = colorStops[1].second,
+                    tint = Color(0xFFA454DD),
                     contentDescription = "Notifications"
                 )
             }
@@ -115,7 +112,7 @@ fun MainTopBar() {
 
 @Composable
 fun BalanceIcon() {
-    val colors = listOf(Color(0xFF69B8ED), Color(0xFF6560E0))
+    val colors = listOf(Color(0xFFFF4B63), Color(0xFFA454DD))
     Row(
         modifier = Modifier
             .height(30.dp)
@@ -179,14 +176,27 @@ fun MainList(
 fun MainSectionList(
     model: ModelMain
 ) {
-    Column(
+    LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
-            .verticalScroll(rememberScrollState())
     ) {
-        FeaturedTournamentList(model = model.upcoming_matches.match_list)
-        CurrentOffersList(model = model.current_offers.offer_list)
-        UserMatchesList(model = model.user_matches.match_list)
+        item {
+            FeaturedTournamentList(model = model.upcoming_matches.match_list)
+            CurrentOffersList(model = model.current_offers.offer_list)
+            UserMatchesList(model = model.user_matches.match_list)
+        }
+        item {
+            Spacer(modifier = Modifier.padding(vertical = 12.dp))
+            Text(
+                "Upcoming Matches",
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 2.dp),
+                textAlign = TextAlign.Center,
+                fontSize = 18.sp,
+                color = Color.Black
+            )
+        }
+
         UpcomingMatchesList(model = model.upcoming_matches.match_list)
     }
 }
@@ -218,7 +228,7 @@ fun UserMatchesList(model: List<MatchXX>) {
     Text(
         "Indian T20 League",
         fontWeight = FontWeight.Bold,
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+        modifier = Modifier.padding(horizontal = 20.dp, vertical = 2.dp),
         textAlign = TextAlign.Center,
         fontSize = 18.sp,
         color = Color.Black
@@ -234,22 +244,8 @@ fun UserMatchesList(model: List<MatchXX>) {
     }
 }
 
-@Composable
-fun UpcomingMatchesList(model: List<Match>) {
-    Text(
-        "Upcoming Matches",
-        fontWeight = FontWeight.Bold,
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
-        textAlign = TextAlign.Center,
-        fontSize = 18.sp,
-        color = Color.Black
-    )
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
-        items(model) { items ->
-            ListUpComingItem(post = items)
-        }
+fun LazyListScope.UpcomingMatchesList(model: List<Match>) {
+    items(model) { items ->
+        ListUpComingItem(post = items)
     }
 }

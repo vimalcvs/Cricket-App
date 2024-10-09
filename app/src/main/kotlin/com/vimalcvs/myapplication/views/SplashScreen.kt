@@ -30,7 +30,7 @@ fun SplashScreen(navController: NavHostController) {
             modifier = Modifier
                 .fillMaxHeight(0.2f)
                 .fillMaxWidth(0.3f),
-            painter = painterResource(id = R.drawable.ic_massage),
+            painter = painterResource(id = R.drawable.ic_cricket),
             contentDescription = null
         )
     }

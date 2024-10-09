@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.vimalcvs.myapplication.utils.AppNavigation
 import com.vimalcvs.myapplication.ui.theme.MyApplicationTheme
+import com.vimalcvs.myapplication.utils.AppNavigation
 import dagger.hilt.android.AndroidEntryPoint
 
 

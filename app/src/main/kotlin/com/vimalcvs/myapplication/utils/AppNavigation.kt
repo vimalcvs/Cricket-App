@@ -9,8 +9,8 @@ import androidx.navigation.compose.rememberNavController
 import com.google.gson.Gson
 import com.vimalcvs.myapplication.data.ModelMain
 import com.vimalcvs.myapplication.views.DetailScreen
-import com.vimalcvs.myapplication.views.home.HomeScreen
 import com.vimalcvs.myapplication.views.SplashScreen
+import com.vimalcvs.myapplication.views.home.HomeScreen
 
 
 @Composable
